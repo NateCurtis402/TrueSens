@@ -85,3 +85,24 @@ for this expression we did
 sensitivity = 360 / (counts360 * yaw)
 
 so just like in algebra we would solve what is in the parathensis first. our counts360 ended (by doing the math) being 16,368 and multiplying that by 0.022 we got 360.096 then we divide by 360 and end up with 1 
+
+Calculator.py
+
+Phase 3
+
+if __name__ == "__main__" 
+
+What does this conditional statement do?
+
+It ensures only a certain block of code is being ran.
+
+Python automatically gives every file a variable called __name__ 
+
+- If I run this file directly __name__ is "__main__"
+- If the file is imported into another __name __ is the file name (like "calculator"
+
+Why we use it?
+- My functions can be reused in other files
+- My test code only runs when I run this file directly
+
+All in all, just means to run this specific code if I launch the file myself.
