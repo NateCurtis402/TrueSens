@@ -8,8 +8,6 @@ def sensitivity_to_cm360(sensitivity, yaw, dpi):
 
     result = cm_per_360
     return result
-c360 = sensitivity_to_cm360(1.0, 0.022, 1600)
-print(f"cm per 360: {c360:.2f}")
 
 #Math Function, calculation for cm360 to sens
 def cm360_to_sensitivity(cm360, yaw, dpi):
@@ -20,6 +18,12 @@ def cm360_to_sensitivity(cm360, yaw, dpi):
 
     result = sensitivity
     return result
-sens = cm360_to_sensitivity(c360, 0.022, 1600)
-print(f"sensitivity: {sens:.2f}")
 
+# This will only run when I run calculator.py directly
+if __name__ == "__main__":
+
+    c360 = sensitivity_to_cm360(1.0, 0.022, 1600)
+    print(f"cm per 360: {c360:.2f}")
+
+    sens = cm360_to_sensitivity(c360, 0.022, 1600)
+    print(f"sensitivity: {sens:.2f}")
