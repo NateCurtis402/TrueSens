@@ -1,1 +1,25 @@
-
+{
+  "games": [
+    {
+      "name": "CS2",
+      "yaw": 0.022,
+      "engine": "Source 2",
+      "notes": "Same yaw as CS:GO, inherited from Source engine",
+      "source": "m_yaw console variable, verified mouse-sensitivity.com"
+    },
+    {
+      "name": "Apex Legends",
+      "yaw": 0.022,
+      "engine": "Source (modified)",
+      "notes": "Respawn modified Source engine, inherited m_yaw",
+      "source": "Community verified, consistent with Source engine default"
+    },
+    {
+      "name": "Valorant",
+      "yaw": 0.07,
+      "engine": "Unreal Engine 4",
+      "notes": "Higher yaw than Source games",
+      "source": "Riot confirmed, mouse-sensitivity.com verified"
+    }
+  ]
+}
