@@ -106,3 +106,41 @@ Why we use it?
 - My test code only runs when I run this file directly
 
 All in all, just means to run this specific code if I launch the file myself.
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+games.json 
+
+This is our database for each game, this is for TrueSens to automatically pull the data it needs to calculate your sensitivity.
+
+The first thing I did was researched these three concepts first before I started.
+
+1. JSON format beginner guide
+2. JSON object vs JSON array 
+3. JSON data types
+
+JSON - JavaScript Object Notation: text-based format editor, used for storing and exchanging data. JSON works well with Python, because Python has a supported module for it.
+
+The way json works is by using [] (arrays/lists) {} (objects to be stored in each list)
+
+Our first attempt
+
+{ #This opening curly brace is the start our object which will be our list
+  "games": [ #This bracket right here is the start of our list
+       {
+	   "name": "CS2", #Here is our first data string storing the game name
+    	   "Yaw": 0.022, #Second storing yaw value (side note: each data string needs a comma after except for the last) 	
+	   "Engine": "Source"
+       },
+
+
+Correction to attempt:
+
+Everything worked out fine, did a good job naming the list, but one thing I need to account for is the key names. If you look at Yaw, I had the Y capitalized, but within my calculator.py file I have the yaw parameter with a lowercase. In order for python to read this correctly, there needs to be consistency on the key and the parameter. So to correct this I just put a lowercase on the y.
+
+- My next step
+
+I need to research how to load a json file into python
+
+*Concept used: Python json module load file
+
