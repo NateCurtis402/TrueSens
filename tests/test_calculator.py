@@ -64,5 +64,36 @@ class TestGamesRoundTrip(unittest.TestCase):
                 self.assertAlmostEqual(back_to_cs2, CS2_SENS, delta=1e-9)
 
 
+class TestKnownCrossGameValues(unittest.TestCase):
+
+    def game_yaw(self, name):
+        for game in load_games():
+            if game["name"] == name:
+                return game["yaw"]
+        self.fail(f"{name} not found in games.json")
+
+    def test_cs2_to_valorant(self):
+        # Valorant yaw 0.07: 1.0 * 0.022 / 0.07 = 0.3143
+        valorant_yaw = self.game_yaw("Valorant")
+        cm = sensitivity_to_cm360(1.0, 0.022, 1600)
+        result = cm360_to_sensitivity(cm, valorant_yaw, 1600)
+        self.assertAlmostEqual(result, 0.3143, delta=0.001)
+
+    def test_cs2_to_apex_is_one_to_one(self):
+        # Apex shares the Source yaw 0.022, so the sensitivity carries over 1:1
+        apex_yaw = self.game_yaw("Apex Legends")
+        cm = sensitivity_to_cm360(1.0, 0.022, 1600)
+        result = cm360_to_sensitivity(cm, apex_yaw, 1600)
+        self.assertAlmostEqual(result, 1.0, delta=1e-9)
+
+    def test_all_yaw_values_are_plausible(self):
+        games = load_games()
+        self.assertTrue(games, "games.json contains no games")
+        for game in games:
+            with self.subTest(game=game["name"], yaw=game["yaw"]):
+                self.assertGreaterEqual(game["yaw"], 0.001)
+                self.assertLessEqual(game["yaw"], 0.1)
+
+
 if __name__ == "__main__":
     unittest.main()

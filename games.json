@@ -3,19 +3,22 @@
         {
             "name": "CS2",
             "yaw": 0.022,
-            "engine": "Source"
+            "engine": "Source",
+            "source": "https://itsesports.com/tools/sensitivity-converter/"
         },
 
         {
             "name": "Valorant",
-            "yaw": 0.7,
-            "engine": "Unreal Engine 5"   
+            "yaw": 0.07,
+            "engine": "Unreal Engine 5",
+            "source": "https://csdb.gg/sensitivity-converter/valorant-to-csgo/"
         },
 
         {
             "name": "Apex Legends",
             "yaw": 0.022,
-            "engine": "Source (modified)"    
+            "engine": "Source (modified)",
+            "source": "https://itsesports.com/tools/sensitivity-converter/"
         }
     ]
 }
