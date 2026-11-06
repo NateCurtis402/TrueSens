@@ -7,7 +7,15 @@ from pathlib import Path
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(PROJECT_ROOT))
 
-from calculator import cm360_to_sensitivity, sensitivity_to_cm360
+import calculator
+from calculator import (
+    cm360_for_sensitivity,
+    cm360_to_sensitivity,
+    convert_sensitivity,
+    find_game,
+    sensitivity_for_cm360,
+    sensitivity_to_cm360,
+)
 
 GAMES_FILE = PROJECT_ROOT / "games.json"
 
@@ -93,6 +101,58 @@ class TestKnownCrossGameValues(unittest.TestCase):
             with self.subTest(game=game["name"], yaw=game["yaw"]):
                 self.assertGreaterEqual(game["yaw"], 0.001)
                 self.assertLessEqual(game["yaw"], 0.1)
+
+
+class TestGameHelpers(unittest.TestCase):
+
+    def setUp(self):
+        self.games = calculator.load_games()
+
+    def test_load_games_returns_five_games(self):
+        self.assertEqual(len(self.games), 5)
+
+    def test_find_game_is_case_insensitive(self):
+        self.assertEqual(find_game("vALORANT", self.games)["name"], "Valorant")
+        self.assertEqual(find_game("counter-strike 2", self.games)["name"], "Counter-Strike 2")
+
+    def test_find_game_matches_aliases_case_insensitively(self):
+        self.assertEqual(find_game("cs2", self.games)["name"], "Counter-Strike 2")
+        self.assertEqual(find_game("VAL", self.games)["name"], "Valorant")
+        self.assertEqual(find_game("apex", self.games)["name"], "Apex Legends")
+        self.assertEqual(find_game("Ow2", self.games)["name"], "Overwatch 2")
+        self.assertEqual(find_game("mr", self.games)["name"], "Marvel Rivals")
+
+    def test_find_game_raises_key_error_on_unknown_name(self):
+        with self.assertRaises(KeyError):
+            find_game("Not A Real Game", self.games)
+
+    def test_convert_same_game_returns_input_unchanged(self):
+        for game in self.games:
+            with self.subTest(game=game["name"]):
+                result = convert_sensitivity(0.734, game["name"], game["name"], DPI, self.games)
+                self.assertEqual(result, 0.734)
+
+    def test_convert_cs2_to_valorant(self):
+        result = convert_sensitivity(1.0, "Counter-Strike 2", "Valorant", DPI, self.games)
+        self.assertAlmostEqual(result, 0.3143, delta=0.001)
+
+    def test_convert_cs2_to_apex_is_one_to_one(self):
+        result = convert_sensitivity(1.0, "Counter-Strike 2", "Apex Legends", DPI, self.games)
+        self.assertAlmostEqual(result, 1.0, delta=1e-9)
+
+    def test_every_game_has_https_source(self):
+        for game in self.games:
+            with self.subTest(game=game["name"]):
+                source = game.get("source", "")
+                self.assertTrue(source)
+                self.assertTrue(source.startswith("https://"))
+
+    def test_cm360_helpers_round_trip_for_every_game(self):
+        for game in self.games:
+            with self.subTest(game=game["name"]):
+                cm = cm360_for_sensitivity(1.0, game["name"], DPI, self.games)
+                back = sensitivity_for_cm360(cm, game["name"], DPI, self.games)
+                self.assertAlmostEqual(back, 1.0, delta=1e-9)
 
 
 if __name__ == "__main__":
