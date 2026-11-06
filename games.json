@@ -1,21 +1,39 @@
 {
     "games": [
         {
-            "name": "CS2",
-            "yaw": 0.022,
-            "engine": "Source"
-        },
-
-        {
             "name": "Valorant",
-            "yaw": 0.7,
-            "engine": "Unreal Engine 5"   
+            "yaw": 0.07,
+            "engine": "Unreal Engine 5",
+            "source": "https://itsesports.com/tools/sensitivity-converter/",
+            "aliases": ["val", "valo"]
         },
-
+        {
+            "name": "Counter-Strike 2",
+            "yaw": 0.022,
+            "engine": "Source 2",
+            "source": "https://itsesports.com/tools/sensitivity-converter/",
+            "aliases": ["cs2", "csgo", "cs"]
+        },
         {
             "name": "Apex Legends",
             "yaw": 0.022,
-            "engine": "Source (modified)"    
+            "engine": "Source",
+            "source": "https://itsesports.com/tools/sensitivity-converter/",
+            "aliases": ["apex"]
+        },
+        {
+            "name": "Overwatch 2",
+            "yaw": 0.0066,
+            "engine": "Overwatch engine",
+            "source": "https://itsesports.com/tools/sensitivity-converter/",
+            "aliases": ["ow2", "overwatch", "ow"]
+        },
+        {
+            "name": "Marvel Rivals",
+            "yaw": 0.0175,
+            "engine": "Unreal Engine 5",
+            "source": "https://itsesports.com/tools/sensitivity-converter/",
+            "aliases": ["mr", "rivals"]
         }
     ]
 }
